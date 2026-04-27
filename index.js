@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } = require('discord.js'); // Agregamos AttachmentBuilder
 require('dotenv').config();
 
 // ==================== CONFIGURACIÓN ====================
@@ -15,10 +15,7 @@ client.once('ready', () => {
     console.log(`✅ ¡Bot de La Vagancia online!`);
     console.log(`🤖 Logueado como: ${client.user.tag}`);
 
-    // Mandar el primero al encender
     enviarAnuncio();
-
-    // Ciclo de una hora
     setInterval(enviarAnuncio, INTERVALO_TIEMPO);
 });
 
@@ -26,6 +23,9 @@ async function enviarAnuncio() {
     try {
         const canal = await client.channels.fetch(ID_CANAL_GENERAL);
         if (!canal) return console.error("❌ No encontré el canal.");
+
+        // 1. Preparamos el archivo local
+        const imagenAdjunta = new AttachmentBuilder('./logo.png');
 
         const embedAnuncio = new EmbedBuilder()
             .setTitle('🔥 ¡DOMINGO 5 DE MAYO: LANZAMIENTO DOBLE RACE! 🔥')
@@ -42,12 +42,16 @@ async function enviarAnuncio() {
                 { name: '📅 INICIO', value: '5 de Mayo', inline: true },
                 { name: '🛡️ SERVER', value: 'La Vagancia', inline: true }
             )
-            .setColor('#8B00FF') // Violeta característico
+            .setColor('#8B00FF')
             .setTimestamp()
+            // 2. Usamos el nombre del archivo con el prefijo attachment://
+            .setImage('attachment://logo.png') 
             .setFooter({ text: 'Evento oficial de La Vagancia', iconURL: client.user.displayAvatarURL() });
 
-        await canal.send({ embeds: [embedAnuncio] });
-        console.log(`[${new Date().toLocaleTimeString()}] ✅ Anuncio enviado.`);
+        // 3. Enviamos el embed Y el archivo adjunto juntos
+        await canal.send({ embeds: [embedAnuncio], files: [imagenAdjunta] });
+        
+        console.log(`[${new Date().toLocaleTimeString()}] ✅ Anuncio con imagen enviado.`);
 
     } catch (error) {
         console.error('❌ Error al enviar:', error);
