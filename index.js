@@ -1,10 +1,10 @@
-const { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } = require('discord.js'); // Agregamos AttachmentBuilder
+const { Client, GatewayIntentBits, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 require('dotenv').config();
 
 // ==================== CONFIGURACIÓN ====================
 const TOKEN = process.env.TOKEN; 
 const ID_CANAL_GENERAL = '1391624633417076777'; 
-const INTERVALO_TIEMPO = 60 * 60 * 1000; // 1 Hora exacta
+const INTERVALO_TIEMPO = 50 * 60 * 1000; // Cambiado a 50 minutos
 // =======================================================
 
 const client = new Client({ 
@@ -24,8 +24,9 @@ async function enviarAnuncio() {
         const canal = await client.channels.fetch(ID_CANAL_GENERAL);
         if (!canal) return console.error("❌ No encontré el canal.");
 
-        // 1. Preparamos el archivo local
-        const imagenAdjunta = new AttachmentBuilder('./logo.png');
+        // Preparamos los archivos locales
+        const logoPrincipal = new AttachmentBuilder('./logo.png');
+        const insigniaVagancia = new AttachmentBuilder('./araña.png');
 
         const embedAnuncio = new EmbedBuilder()
             .setTitle('🔥 ¡DOMINGO 5 DE MAYO: LANZAMIENTO DOBLE RACE! 🔥')
@@ -34,7 +35,10 @@ async function enviarAnuncio() {
                 'Se pica la competencia con dos formas de ganar plata real:\n\n' +
                 '🏆 **RACE WINS:** El que más apostados gane en el mes se queda con el premio mayor. 💸\n\n' +
                 '🎤 **RACE VOICE:** ¡Premio a la constancia! El que más tiempo pase en los canales de voz sumando puntos llega al TOP. 💸\n\n' +
-                '⚠️ **REQUISITO OBLIGATORIO:** Tener la insignia **VG** puesta para participar.\n\n' +
+                '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+                '⚠️ **AVISO IMPORTANTE:**\n' +
+                '# 🛡️ OBLIGATORIO TENER LA INSIGNIA VG PARA PARTICIPAR DE LOS EVENTOS\n' +
+                '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
                 '¡No duerman, los esperamos para este doble eventazo! 🏎️💨'
             )
             .addFields(
@@ -44,14 +48,19 @@ async function enviarAnuncio() {
             )
             .setColor('#8B00FF')
             .setTimestamp()
-            // 2. Usamos el nombre del archivo con el prefijo attachment://
+            // La "araña" aparece en pequeño arriba a la derecha
+            .setThumbnail('attachment://araña.png') 
+            // El logo grande abajo
             .setImage('attachment://logo.png') 
             .setFooter({ text: 'Evento oficial de La Vagancia', iconURL: client.user.displayAvatarURL() });
 
-        // 3. Enviamos el embed Y el archivo adjunto juntos
-        await canal.send({ embeds: [embedAnuncio], files: [imagenAdjunta] });
+        // Enviamos el embed con ambos archivos adjuntos
+        await canal.send({ 
+            embeds: [embedAnuncio], 
+            files: [logoPrincipal, insigniaVagancia] 
+        });
         
-        console.log(`[${new Date().toLocaleTimeString()}] ✅ Anuncio con imagen enviado.`);
+        console.log(`[${new Date().toLocaleTimeString()}] ✅ Anuncio enviado (Intervalo: 50 min).`);
 
     } catch (error) {
         console.error('❌ Error al enviar:', error);
