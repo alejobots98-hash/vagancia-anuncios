@@ -4,7 +4,8 @@ require('dotenv').config();
 // ==================== CONFIGURACIÓN ====================
 const TOKEN = process.env.TOKEN; 
 const ID_CANAL_GENERAL = '1391624633417076777'; 
-const INTERVALO_TIEMPO = 50 * 60 * 1000; // Cambiado a 50 minutos
+const INTERVALO_ANUNCIO = 50 * 60 * 1000; 
+const INTERVALO_INSIGNIA = 35 * 60 * 1000; 
 // =======================================================
 
 const client = new Client({ 
@@ -13,18 +14,24 @@ const client = new Client({
 
 client.once('ready', () => {
     console.log(`✅ ¡Bot de La Vagancia online!`);
-    console.log(`🤖 Logueado como: ${client.user.tag}`);
 
+    // Ciclo 50 min (Evento)
     enviarAnuncio();
-    setInterval(enviarAnuncio, INTERVALO_TIEMPO);
+    setInterval(enviarAnuncio, INTERVALO_ANUNCIO);
+
+    // Ciclo 35 min (Insignia)
+    setTimeout(() => {
+        enviarRecordatorioInsignia();
+        setInterval(enviarRecordatorioInsignia, INTERVALO_INSIGNIA);
+    }, 15000); 
 });
 
+// MENSAJE EVENTOS (Sin cambios)
 async function enviarAnuncio() {
     try {
         const canal = await client.channels.fetch(ID_CANAL_GENERAL);
-        if (!canal) return console.error("❌ No encontré el canal.");
+        if (!canal) return;
 
-        // Preparamos los archivos locales
         const logoPrincipal = new AttachmentBuilder('./logo.png');
         const insigniaVagancia = new AttachmentBuilder('./araña.png');
 
@@ -48,23 +55,34 @@ async function enviarAnuncio() {
             )
             .setColor('#8B00FF')
             .setTimestamp()
-            // La "araña" aparece en pequeño arriba a la derecha
             .setThumbnail('attachment://araña.png') 
-            // El logo grande abajo
             .setImage('attachment://logo.png') 
             .setFooter({ text: 'Evento oficial de La Vagancia', iconURL: client.user.displayAvatarURL() });
 
-        // Enviamos el embed con ambos archivos adjuntos
-        await canal.send({ 
-            embeds: [embedAnuncio], 
-            files: [logoPrincipal, insigniaVagancia] 
-        });
-        
-        console.log(`[${new Date().toLocaleTimeString()}] ✅ Anuncio enviado (Intervalo: 50 min).`);
+        await canal.send({ embeds: [embedAnuncio], files: [logoPrincipal, insigniaVagancia] });
+    } catch (error) { console.error(error); }
+}
 
-    } catch (error) {
-        console.error('❌ Error al enviar:', error);
-    }
+// MENSAJE INSIGNIA (Modificado a simple)
+async function enviarRecordatorioInsignia() {
+    try {
+        const canal = await client.channels.fetch(ID_CANAL_GENERAL);
+        if (!canal) return;
+
+        const insigniaFile = new AttachmentBuilder('./araña.png');
+
+        const embedInsignia = new EmbedBuilder()
+            .setTitle('🛡️ REQUISITO OBLIGATORIO')
+            .setDescription('Recuerden que para participar de los eventos tienen que tener la **insignia VG** sí o sí.')
+            .setColor('#8B00FF') 
+            .setImage('attachment://araña.png') // Muestra la araña en grande
+            .setFooter({ text: 'La Vagancia' });
+
+        await canal.send({ 
+            embeds: [embedInsignia], 
+            files: [insigniaFile] 
+        });
+    } catch (error) { console.error(error); }
 }
 
 client.login(TOKEN);
