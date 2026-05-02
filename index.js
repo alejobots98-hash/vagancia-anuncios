@@ -36,7 +36,7 @@ async function enviarAnuncio() {
         const insigniaVagancia = new AttachmentBuilder('./araña.png');
 
         const embedAnuncio = new EmbedBuilder()
-            .setTitle('🔥 ¡DOMINGO 5 DE MAYO: LANZAMIENTO DOBLE RACE! 🔥')
+            .setTitle('🔥 ¡MARTES 5 DE MAYO: LANZAMIENTO DOBLE RACE! 🔥')
             .setDescription(
                 'Prepárense para el evento más pesado del mes en **La Vagancia**. \n' +
                 'Se pica la competencia con dos formas de ganar plata real:\n\n' +
