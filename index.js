@@ -4,24 +4,30 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds]
 });
 
-// ⚠️ CONFIGURÁ ESTO
-const TOKEN = 'TU_TOKEN_ACA';
-const CHANNEL_ID = 'ID_DEL_CANAL';
+// CONFIGURACIÓN
+const TOKEN = 'TU_TOKEN_ACA'; // Recordá poner tu token real aquí
+const CHANNEL_ID = '1391624633417076777';
 
-client.once('ready', () => {
-    console.log(`Bot listo como ${client.user.tag}`);
+client.once('ready', async () => {
+    console.log(`✅ Bot conectado como ${client.user.tag}`);
 
-    // Ejecuta cada 30 minutos (1800000 ms)
-    setInterval(async () => {
-        try {
-            const channel = await client.channels.fetch(CHANNEL_ID);
+    try {
+        const channel = await client.channels.fetch(CHANNEL_ID);
 
-            const file = new AttachmentBuilder('./araña.png');
+        if (!channel) {
+            console.error("❌ No se encontró el canal. Verificá que el bot esté en el servidor.");
+            return;
+        }
 
-            const embed = new EmbedBuilder()
-                .setColor('#ff0000')
-                .setTitle('🚨 IMPORTANTE 🚨')
-                .setDescription(
+        // Ejecuta cada 30 minutos (1800000 ms)
+        setInterval(async () => {
+            try {
+                const file = new AttachmentBuilder('./araña.png');
+
+                const embed = new EmbedBuilder()
+                    .setColor('#ff0000')
+                    .setTitle('🚨 IMPORTANTE 🚨')
+                    .setDescription(
 `📢 **5 de mayo, 21 HS comienzan las dos race!**
 🏁 **Race Voice** y **Race Wins**
 
@@ -40,15 +46,20 @@ client.once('ready', () => {
 🎮 **race wins**
 
 🍀 ¡Mucha suerte a todos!`
-                )
-                .setImage('attachment://araña.png');
+                    )
+                    .setImage('attachment://araña.png');
 
-            channel.send({ embeds: [embed], files: [file] });
+                await channel.send({ embeds: [embed], files: [file] });
+                console.log(`📢 Mensaje de evento enviado a las ${new Date().toLocaleTimeString()}`);
 
-        } catch (error) {
-            console.error('Error enviando mensaje:', error);
-        }
-    }, 1800000);
+            } catch (err) {
+                console.error('❌ Error al enviar el mensaje programado:', err);
+            }
+        }, 1800000);
+
+    } catch (error) {
+        console.error('❌ Error al obtener el canal:', error);
+    }
 });
 
 client.login(TOKEN);
