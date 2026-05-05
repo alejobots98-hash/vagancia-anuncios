@@ -23,7 +23,7 @@ client.once('ready', () => {
                 .setColor('#ff0000')
                 .setTitle('🚨 IMPORTANTE 🚨')
                 .setDescription(
-`📢 **Mañana 5 de mayo, 21 HS comienzan las dos race!**
+`📢 **HOY INICIAN LOS EVENTOS, 21 HS comienzan las dos race!**
 🏁 **Race Voice** y **Race Wins**
 
 💰 **200.000 ARS cada una**
