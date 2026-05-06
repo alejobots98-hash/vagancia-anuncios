@@ -21,28 +21,14 @@ client.once('ready', () => {
 
             const embed = new EmbedBuilder()
                 .setColor('#ff0000')
-                .setTitle('🚨 IMPORTANTE 🚨')
                 .setDescription(
-`📢 **HOY INICIAN LOS EVENTOS, 21 HS comienzan las dos race!**
-🏁 **Race Voice** y **Race Wins**
+`📢 Recuerden que, para participar en los eventos activos, es obligatorio contar con la insignia VG y jugar en los canales de voz de Vagancia.
 
-💰 **200.000 ARS cada una**
-💸 **TOTAL: 400.000 ARS a repartir**
+🎉 Próximamente, el día 13, se realizará el evento Race WinQueens femenino con un premio de $100.000 ARS. ¡No se lo pierdan!
 
-━━━━━━━━━━━━━━━━━━━━━━
-
-⚠️ **OBLIGATORIO**
-🔥 **TENER LA INSIGNIA VG PARA PODER PARTICIPAR** 🔥
-
-━━━━━━━━━━━━━━━━━━━━━━
-
-📌 Más información en:
-🔊 **race voice**
-🎮 **race wins**
-
-🍀 ¡Mucha suerte a todos!`
+💰 Actualmente hay 3 eventos disponibles, con un pozo total de $500.000 ARS.`
                 )
-                .setImage('attachment://araña.png');
+                .setThumbnail('attachment://araña.png');
 
             await channel.send({ embeds: [embed], files: [file] });
             
