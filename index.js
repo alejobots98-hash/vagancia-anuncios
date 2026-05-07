@@ -4,21 +4,19 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds]
 });
 
-// Usamos variables de entorno para Railway
 const TOKEN = process.env.DISCORD_TOKEN; 
 const CHANNEL_ID = '1391624633417076777';
 
 client.once('ready', () => {
     console.log(`✅ Bot online como ${client.user.tag}`);
 
-    // Intervalo de 30 minutos
+    // --- ANUNCIO 1: REGLAS Y EVENTOS ACTIVOS (Cada 30 minutos) ---
     setInterval(async () => {
         try {
             const channel = await client.channels.fetch(CHANNEL_ID);
             if (!channel) return;
 
             const file = new AttachmentBuilder('./araña.png');
-
             const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setDescription(
@@ -31,12 +29,41 @@ client.once('ready', () => {
                 .setThumbnail('attachment://araña.png');
 
             await channel.send({ embeds: [embed], files: [file] });
-            
         } catch (error) {
-            console.error('Error en el envío programado:', error);
+            console.error('Error en el anuncio de 30 min:', error);
         }
     }, 1800000);
+
+    // --- ANUNCIO 2: RACE WIN FEM (Cada 1 hora) ---
+    setInterval(async () => {
+        try {
+            const channel = await client.channels.fetch(CHANNEL_ID);
+            if (!channel) return;
+
+            const fileFem = new AttachmentBuilder('./fem.png');
+            const embedFem = new EmbedBuilder()
+                .setTitle('💖 RACE WIN FEM 💖')
+                .setColor('#ff00ff')
+                .setDescription(
+`📅 El evento exclusivamente femenino arranca el 13 de Mayo
+
+💸 100.000 ARS a repartir en premios
+👑 ¿Quién será la próxima Queen Win?
+
+🔥 Demostrá quién domina la competencia y llevate la corona
+✨ Evento exclusivo para mujeres
+
+🎮 Servidor: LaVagancia
+
+🔗 discord.gg/lavaganciagg`
+                )
+                .setImage('attachment://fem.png');
+
+            await channel.send({ embeds: [embedFem], files: [fileFem] });
+        } catch (error) {
+            console.error('Error en el anuncio de 1 hora:', error);
+        }
+    }, 3600000);
 });
 
-// Sistema para que Railway no mate el proceso
 client.login(TOKEN);
