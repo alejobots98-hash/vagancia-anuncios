@@ -22,9 +22,9 @@ client.once('ready', () => {
                 .setDescription(
 `📢 Recuerden que, para participar en los eventos activos, es obligatorio contar con la insignia VG y jugar en los canales de voz de Vagancia.
 
-🎉 Próximamente, el día 13, se realizará el evento Race WinQueens femenino con un premio de $100.000 ARS. ¡No se lo pierdan!
+🎉 Próximamente, el día 13, se realizará el evento Race WinQueens femenino con un premio de $200.000 ARS. ¡No se lo pierdan!
 
-💰 Actualmente hay 3 eventos disponibles, con un pozo total de $500.000 ARS.`
+💰 Actualmente hay 3 eventos disponibles, con un pozo total de $600.000 ARS.`
                 )
                 .setThumbnail('attachment://araña.png');
 
