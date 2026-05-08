@@ -4,7 +4,7 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds]
 });
 
-const TOKEN = process.env.DISCORD_TOKEN; 
+const TOKEN = process.env.DISCORD_TOKEN;
 const CHANNEL_ID = '1391624633417076777';
 
 client.once('ready', () => {
@@ -17,6 +17,7 @@ client.once('ready', () => {
             if (!channel) return;
 
             const file = new AttachmentBuilder('./araña.png');
+
             const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setDescription(
@@ -28,7 +29,11 @@ client.once('ready', () => {
                 )
                 .setThumbnail('attachment://araña.png');
 
-            await channel.send({ embeds: [embed], files: [file] });
+            await channel.send({
+                embeds: [embed],
+                files: [file]
+            });
+
         } catch (error) {
             console.error('Error en el anuncio de 30 min:', error);
         }
@@ -40,14 +45,17 @@ client.once('ready', () => {
             const channel = await client.channels.fetch(CHANNEL_ID);
             if (!channel) return;
 
-            const fileFem = new AttachmentBuilder('./fem.png');
-            const embedFem = new EmbedBuilder()
-                .setTitle('💖 RACE WIN FEM 💖')
-                .setColor('#ff00ff')
-                .setDescription(
-`📅 El evento exclusivamente femenino arranca el 13 de Mayo
+            // NUEVA IMAGEN
+            const fileFem = new AttachmentBuilder('./torneofem.png');
 
-💸 100.000 ARS a repartir en premios
+            const embedFem = new EmbedBuilder()
+                .setColor('#ff1493')
+                .setDescription(
+`💖 RACE WIN FEM 💖
+
+📅 El evento exclusivamente femenino arranca el 13 de Mayo
+
+💸 200.000 ARS a repartir en premios
 👑 ¿Quién será la próxima Queen Win?
 
 🔥 Demostrá quién domina la competencia y llevate la corona
@@ -57,9 +65,13 @@ client.once('ready', () => {
 
 🔗 discord.gg/lavaganciagg`
                 )
-                .setImage('attachment://fem.png');
+                .setImage('attachment://torneofem.png');
 
-            await channel.send({ embeds: [embedFem], files: [fileFem] });
+            await channel.send({
+                embeds: [embedFem],
+                files: [fileFem]
+            });
+
         } catch (error) {
             console.error('Error en el anuncio de 1 hora:', error);
         }
