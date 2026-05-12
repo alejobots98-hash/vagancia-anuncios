@@ -10,7 +10,7 @@ const CHANNEL_ID = '1391624633417076777';
 client.once('ready', () => {
     console.log(`✅ Bot online como ${client.user.tag}`);
 
-    // --- ANUNCIO 1: REGLAS Y EVENTOS ACTIVOS (Cada 30 minutos) ---
+    // --- ANUNCIO 1: REGLAS Y EVENTOS ACTIVOS (Cada 1 hora) ---
     setInterval(async () => {
         try {
             const channel = await client.channels.fetch(CHANNEL_ID);
@@ -21,11 +21,21 @@ client.once('ready', () => {
             const embed = new EmbedBuilder()
                 .setColor('#ff0000')
                 .setDescription(
-`📢 Recuerden que, para participar en los eventos activos, es obligatorio contar con la insignia VG y jugar en los canales de voz de Vagancia.
+`📢 **REGLAS Y EVENTOS ACTIVOS**
 
-🎉 Próximamente, el día 13, se realizará el evento Race WinQueens femenino con un premio de $200.000 ARS. ¡No se lo pierdan!
+🎮 Para participar en los eventos activos es obligatorio:
 
-💰 Actualmente hay 3 eventos disponibles, con un pozo total de $600.000 ARS.`
+✅ Tener la etiqueta / insignia VG
+✅ Jugar dentro de los canales de voz de Vagancia
+
+💸 Actualmente contamos con 3 eventos activos
+🔥 Pozo total de $600.000 ARS
+
+👑 Próximamente llega el evento femenino:
+💖 RACE WIN QUEENS FEM 💖
+
+📅 Inicio: 13 de Mayo
+🏆 Premio total: $200.000 ARS`
                 )
                 .setThumbnail('attachment://araña.png');
 
@@ -35,33 +45,41 @@ client.once('ready', () => {
             });
 
         } catch (error) {
-            console.error('Error en el anuncio de 30 min:', error);
+            console.error('Error en el anuncio de 1 hora:', error);
         }
-    }, 1800000);
+    }, 3600000);
 
-    // --- ANUNCIO 2: RACE WIN FEM (Cada 1 hora) ---
+    // --- ANUNCIO 2: RACE WIN FEM (Cada 30 minutos) ---
     setInterval(async () => {
         try {
             const channel = await client.channels.fetch(CHANNEL_ID);
             if (!channel) return;
 
-            // NUEVA IMAGEN
             const fileFem = new AttachmentBuilder('./torneofem.png');
 
             const embedFem = new EmbedBuilder()
                 .setColor('#ff1493')
                 .setDescription(
-`💖 RACE WIN FEM 💖
+`# 💖 RACE WIN FEM 💖
+
+## ⏰ INICIA 21 HS
+## 🏷️ RECUERDEN TENER ETIQUETA VG
+
+━━━━━━━━━━━━━━━━━━
 
 📅 El evento exclusivamente femenino arranca el 13 de Mayo
 
-💸 200.000 ARS a repartir en premios
+💸 **200.000 ARS** a repartir en premios
 👑 ¿Quién será la próxima Queen Win?
 
-🔥 Demostrá quién domina la competencia y llevate la corona
+🔥 Demostrá quién domina la competencia
+👑 Llevate la corona de Vagancia
+
 ✨ Evento exclusivo para mujeres
 
-🎮 Servidor: LaVagancia
+━━━━━━━━━━━━━━━━━━
+
+🎮 Servidor: **La Vagancia**
 
 🔗 discord.gg/lavaganciagg`
                 )
@@ -73,9 +91,9 @@ client.once('ready', () => {
             });
 
         } catch (error) {
-            console.error('Error en el anuncio de 1 hora:', error);
+            console.error('Error en el anuncio de 30 min:', error);
         }
-    }, 3600000);
+    }, 1800000);
 });
 
 client.login(TOKEN);
