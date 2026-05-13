@@ -67,7 +67,7 @@ client.once('ready', () => {
 
 ━━━━━━━━━━━━━━━━━━
 
-📅 El evento exclusivamente femenino arranca el 13 de Mayo
+📅 El evento exclusivamente femenino
 
 💸 **200.000 ARS** a repartir en premios
 👑 ¿Quién será la próxima Queen Win?
