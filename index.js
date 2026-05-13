@@ -25,17 +25,13 @@ client.once('ready', () => {
 
 🎮 Para participar en los eventos activos es obligatorio:
 
-✅ Tener la etiqueta / insignia VG
+✅ Tener la etiqueta / insignia VG  
 ✅ Jugar dentro de los canales de voz de Vagancia
 
-💸 Actualmente contamos con 3 eventos activos
+💸 Actualmente contamos con 3 eventos activos  
 🔥 Pozo total de $600.000 ARS
 
-👑 Próximamente llega el evento femenino:
-💖 RACE WIN QUEENS FEM 💖
-
-📅 Inicio: 13 de Mayo
-🏆 Premio total: $200.000 ARS`
+📌 Toda la información y reglas se encuentran en los canales correspondientes del servidor.`
                 )
                 .setThumbnail('attachment://araña.png');
 
@@ -49,45 +45,53 @@ client.once('ready', () => {
         }
     }, 3600000);
 
-    // --- ANUNCIO 2: RACE WIN FEM (Cada 30 minutos) ---
+    // --- ANUNCIO 2: EVENTOS ACTIVOS (Cada 30 minutos) ---
     setInterval(async () => {
         try {
             const channel = await client.channels.fetch(CHANNEL_ID);
             if (!channel) return;
 
-            const fileFem = new AttachmentBuilder('./torneofem.png');
+            // ✅ NOMBRE CORREGIDO
+            const fileEvento = new AttachmentBuilder('./eventos.png');
 
-            const embedFem = new EmbedBuilder()
-                .setColor('#ff1493')
+            const embedEvento = new EmbedBuilder()
+                .setColor('#ff0000')
                 .setDescription(
-`# 💖 RACE WIN FEM 💖
+`# 🔥 ¡TODAVÍA ESTÁN A TIEMPO DE PARTICIPAR! 🔥
 
-## ⏰ INICIA 21 HS
-## 🏷️ RECUERDEN TENER ETIQUETA VG
-
-━━━━━━━━━━━━━━━━━━
-
-📅 El evento exclusivamente femenino
-
-💸 **200.000 ARS** a repartir en premios
-👑 ¿Quién será la próxima Queen Win?
-
-🔥 Demostrá quién domina la competencia
-👑 Llevate la corona de Vagancia
-
-✨ Evento exclusivo para mujeres
+👑 En **La Vagancia** tenemos  
+## 3 EVENTOS ACTIVOS
+📅 Finalizan el **13 de Junio**
 
 ━━━━━━━━━━━━━━━━━━
 
-🎮 Servidor: **La Vagancia**
+🏆 **Eventos disponibles**
+
+🎤 **Race Voice**  
+💰 200.000 ARS a repartir
+
+🔥 **Race Wins**  
+💰 200.000 ARS a repartir
+
+💖 **Race Wins FEMS**  
+💰 200.000 ARS a repartir
+
+━━━━━━━━━━━━━━━━━━
+
+⚔️ Todavía pueden sumarse y pelear por los puestos más altos.
+
+📌 Toda la información, reglas y tablas se encuentran en los canales de eventos del servidor.
+
+🔥 Los esperamos en Vagancia…  
+👑 ¡Y QUE GANE EL MEJOR!
 
 🔗 discord.gg/lavaganciagg`
                 )
-                .setImage('attachment://torneofem.png');
+                .setImage('attachment://eventos.png');
 
             await channel.send({
-                embeds: [embedFem],
-                files: [fileFem]
+                embeds: [embedEvento],
+                files: [fileEvento]
             });
 
         } catch (error) {
