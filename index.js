@@ -51,7 +51,6 @@ client.once('ready', () => {
             const channel = await client.channels.fetch(CHANNEL_ID);
             if (!channel) return;
 
-            // ✅ NOMBRE CORREGIDO
             const fileEvento = new AttachmentBuilder('./eventos.png');
 
             const embedEvento = new EmbedBuilder()
@@ -98,6 +97,46 @@ client.once('ready', () => {
             console.error('Error en el anuncio de 30 min:', error);
         }
     }, 1800000);
+
+    // --- ANUNCIO 3: SORTEO DE DECORACIONES (Cada 25 minutos) ---
+    setInterval(async () => {
+        try {
+            const channel = await client.channels.fetch(CHANNEL_ID);
+            if (!channel) return;
+
+            // Cargamos la imagen ds.png desde la raíz del proyecto
+            const fileSorteo = new AttachmentBuilder('./ds.png');
+
+            const embedSorteo = new EmbedBuilder()
+                .setColor('#ff0000')
+                .setDescription(
+`# 🚨 SORTEO ACTIVO HASTA HOY 23:00 HS* 🚨
+
+Todas las personas que suban una historia promocionando el servidor con el link de Discord invitando a venir a jugar, y además me etiqueten en Instagram **@oyoxxz8**, estarán participando automáticamente por **5 premios de decoraciones de Discord** 🎁✨
+
+✅ La decoración es a elección: pueden elegir la que más les guste, sin importar cuál sea.
+
+📌 **Para participar:**
+* Subí una historia.
+* Agregá el link del Discord.
+* Invitá a la gente a venir a jugar.
+* Etiquetame: **@oyoxxz8**
+
+⏰ Tenés tiempo hasta las **23:00 HS de hoy**.
+
+🍀 ¡Mucha suerte para todos!`
+                )
+                .setImage('attachment://ds.png');
+
+            await channel.send({
+                embeds: [embedSorteo],
+                files: [fileSorteo]
+            });
+
+        } catch (error) {
+            console.error('Error en el anuncio de 25 min (Sorteo):', error);
+        }
+    }, 1500000); // 25 minutos en milisegundos
 });
 
 client.login(TOKEN);
