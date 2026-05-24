@@ -98,6 +98,53 @@ client.once('ready', () => {
         }
     }, 1800000);
 
+    // --- ANUNCIO 3: ENTREGA DE ROLES Y SOPORTE (Cada 1 hora) ---
+    setInterval(async () => {
+        try {
+            const channel = await client.channels.fetch(CHANNEL_ID);
+            if (!channel) return;
+
+            const rolVGTop = '<@&1281358394225066084>';
+            const rolTrigger = '<@&1485467514371575888>';
+
+            const embedRoles = new EmbedBuilder()
+                .setColor('#ff0000')
+                .setDescription(
+`# 🎭 ENTREGA DE ROLES Y SOPORTE
+
+━━━━━━━━━━━━━━━━━━
+
+📌 ¿Necesitás alguna etiqueta, insignia o rol?
+
+👑 Los cargos encargados de entregar roles y brindar ayuda son:
+
+🔥 ${rolVGTop}
+⚡ ${rolTrigger}
+
+━━━━━━━━━━━━━━━━━━
+
+💬 Podés comunicarte con ellos:
+
+• Por este mismo chat
+• O directamente por privado
+
+📢 Apenas estén disponibles te estarán respondiendo.
+
+━━━━━━━━━━━━━━━━━━
+
+👑 Gracias por formar parte de **La Vagancia**`
+                );
+
+            await channel.send({
+                content: `${rolVGTop} ${rolTrigger}`,
+                embeds: [embedRoles]
+            });
+
+        } catch (error) {
+            console.error('Error en el anuncio de roles:', error);
+        }
+    }, 3600000);
+
 });
 
 client.login(TOKEN);
