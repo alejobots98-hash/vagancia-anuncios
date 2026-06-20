@@ -96,9 +96,9 @@ async function enviarRoles() {
 }
 
 // ================================
-// ANUNCIO RACE WINS
+// ANUNCIO EVENTO ACTIVO
 // ================================
-async function enviarRaceWins() {
+async function enviarEventoActivo() {
     try {
         const channel = await client.channels.fetch(CHANNEL_ID);
         if (!channel) return;
@@ -108,31 +108,11 @@ async function enviarRaceWins() {
         const embed = new EmbedBuilder()
             .setColor('#ff0000')
             .setDescription(
-`# 🏆 RACE WINS REGRESA A LA VAGANCIA 🏆
+`🔥 **¡EVENTO ACTIVO!** 🔥
 
-🔥 **200.000 ARS A REPARTIR** 🔥
+¿Quién será el ganador? 🏆 Apostá, jugá y ganá sumando tu win (apostados desde 3.000 ARS en adelante).
 
-¿Tenés lo necesario para convertirte en el nuevo campeón?
-
-Demostralo en uno de los eventos más esperados de la comunidad.
-
-━━━━━━━━━━━━━━━━━━
-
-📅 **Inicio:** Viernes 19
-
-💰 **Premio total:** 200.000 ARS
-
-👑 **Solo uno se llevará la gloria**
-
-━━━━━━━━━━━━━━━━━━
-
-⚔️ Prepará tu mejor juego, reuní a tu equipo y vení a competir contra los mejores.
-
-🔗 **discord.gg/lavagancia**
-
-━━━━━━━━━━━━━━━━━━
-
-🏆🔥 ¿QUIÉN SERÁ EL NUEVO CAMPEÓN? 🔥🏆`
+👉 Toda la info detallada en el canal de eventos: **discord.gg/lavagancia** ¡Te esperamos!`
             )
             .setImage('attachment://eventos.png');
 
@@ -142,7 +122,7 @@ Demostralo en uno de los eventos más esperados de la comunidad.
         });
 
     } catch (error) {
-        console.error('Error en anuncio Race Wins:', error);
+        console.error('Error en anuncio Evento Activo:', error);
     }
 }
 
@@ -164,10 +144,10 @@ client.once('ready', () => {
     }, 1200000); // 20 minutos
 
     // ================================
-    // RACE WINS
+    // EVENTO ACTIVO
     // ================================
-    enviarRaceWins();
-    setInterval(enviarRaceWins, 1800000); // cada 30 minutos
+    enviarEventoActivo();
+    setInterval(enviarEventoActivo, 1800000); // cada 30 minutos
 });
 
 client.login(TOKEN);
