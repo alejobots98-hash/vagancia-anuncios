@@ -96,7 +96,7 @@ async function enviarRoles() {
 }
 
 // ================================
-// ANUNCIO EVENTO ACTIVO
+// ANUNCIO PRÓXIMAMENTE
 // ================================
 async function enviarEventoActivo() {
     try {
@@ -108,11 +108,17 @@ async function enviarEventoActivo() {
         const embed = new EmbedBuilder()
             .setColor('#ff0000')
             .setDescription(
-`🔥 **¡EVENTO ACTIVO!** 🔥
+`# 🔥 PRÓXIMAMENTE 🔥
 
-¿Quién será el ganador? 🏆 Apostá, jugá y ganá sumando tu win (apostados desde 3.000 ARS en adelante).
+👑 **¿Quién destronará al tricampeón?** 🏆
 
-👉 Toda la info detallada en el canal de eventos: **discord.gg/lavagancia** ¡Te esperamos!`
+Apostá, jugá y ganá sumando tu **Win** *(apostados desde **3.000 ARS** en adelante).*
+
+📢 **Toda la información detallada estará disponible próximamente.**
+
+🌐 **discord.gg/lavagancia**
+
+**¡Te esperamos!** 🚀`
             )
             .setImage('attachment://eventos.png');
 
@@ -122,7 +128,7 @@ async function enviarEventoActivo() {
         });
 
     } catch (error) {
-        console.error('Error en anuncio Evento Activo:', error);
+        console.error('Error en anuncio Próximamente:', error);
     }
 }
 
@@ -144,7 +150,7 @@ client.once('ready', () => {
     }, 1200000); // 20 minutos
 
     // ================================
-    // EVENTO ACTIVO
+    // PRÓXIMAMENTE
     // ================================
     enviarEventoActivo();
     setInterval(enviarEventoActivo, 1800000); // cada 30 minutos
